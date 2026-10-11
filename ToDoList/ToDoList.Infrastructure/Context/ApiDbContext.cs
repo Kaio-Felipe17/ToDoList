@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToDoList.Application.Entities;
 
-namespace ToDoList.Infrastructure;
+namespace ToDoList.Infrastructure.Context;
 
 public class ApiDbContext : DbContext
 {
