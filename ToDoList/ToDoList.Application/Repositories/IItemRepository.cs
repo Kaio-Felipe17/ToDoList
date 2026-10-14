@@ -1,6 +1,8 @@
-﻿namespace ToDoList.Application.Repositories;
+using ToDoList.Domain.Entities;
 
-public interface IItemRepository
+namespace ToDoList.Application.Repositories;
+
+public interface IItemRepository : IRepository<Item>
 {
-    Task<bool> ExistsByNameAsync(string name);
+    Task<bool> ExistsByNameAsync(string name, CancellationToken cancellationToken = default);
 }

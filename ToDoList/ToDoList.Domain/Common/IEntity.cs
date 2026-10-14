@@ -1,6 +1,6 @@
-﻿namespace ToDoList.Application.Common;
+namespace ToDoList.Domain.Common;
 
-public class BaseEntity : IEntity
+public interface IEntity
 {
     public Guid Id { get; set; }
     public DateTime? CreatedAt { get; set; }

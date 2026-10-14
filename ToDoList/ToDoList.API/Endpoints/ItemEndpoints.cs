@@ -1,5 +1,7 @@
-﻿using MediatR;
-using ToDoList.Application.Commands.Item;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using ToDoList.Application.Items.Create;
+using ToDoList.Application.Items.GetAll;
 
 namespace ToDoList.API.Endpoints;
 
@@ -11,11 +13,18 @@ public static class ItemEndpoints
             .WithTags("Items");
 
         group.MapPost("", CreateItem);
+        group.MapGet("", GetAllItems);
     }
 
-    public static async Task<IResult> CreateItem(CreateItemCommand command, IMediator mediator, CancellationToken cancellationToken)
+    public static async Task<IResult> CreateItem([FromBody] CreateItemCommand command, IMediator mediator, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(command, cancellationToken);
+        return Results.Created((string?)null, result);
+    }
+
+    public static async Task<IResult> GetAllItems(IMediator mediator, CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetAllItemsQuery(), cancellationToken);
         return Results.Ok(result);
     }
 }

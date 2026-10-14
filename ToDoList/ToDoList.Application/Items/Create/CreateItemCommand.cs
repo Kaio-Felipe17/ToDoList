@@ -1,7 +1,7 @@
-﻿using MediatR;
+using MediatR;
 using ToDoList.Application.DTOs.Item;
 
-namespace ToDoList.Application.Commands.Item;
+namespace ToDoList.Application.Items.Create;
 
 public record CreateItemCommand : IRequest<ItemDTO>
 {

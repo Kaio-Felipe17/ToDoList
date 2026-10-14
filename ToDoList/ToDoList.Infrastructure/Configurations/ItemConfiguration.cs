@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ToDoList.Application.Entities;
+using ToDoList.Domain.Entities;
 
 namespace ToDoList.Infrastructure.Configurations;
 
@@ -11,6 +11,10 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
         builder.ToTable("Items");
 
         builder.HasKey(x => x.Id);
+        builder.HasQueryFilter(x => !x.IsDeleted);
+        builder.HasIndex(x => x.Name)
+            .IsUnique()
+            .HasFilter("[IsDeleted] = 0");
 
         builder.Property(x => x.Name)
             .IsRequired()
