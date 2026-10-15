@@ -12,6 +12,12 @@ public sealed class ApiExceptionHandler(IProblemDetailsService problemDetailsSer
         {
             ItemNameConflictException => (409, "Nome já cadastrado", exception.Message),
             ArgumentException => (400, "Dados inválidos", exception.Message),
+            FluentValidation.ValidationException validation => (
+                400,
+                "Dados inválidos",
+                string.Join("; ", validation.Errors
+                    .Select(error => error.ErrorMessage))
+            ),
             _ => (500, "Erro interno", "Não foi possível concluir a operação.")
         };
 
