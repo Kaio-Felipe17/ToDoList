@@ -56,6 +56,6 @@ public static class ItemEndpoints
             : Results.Ok(result);
     }
 
-    public static async Task DeleteItem(Guid id, [FromBody] DeleteItemCommand command, IMediator mediator, CancellationToken cancellationToken)
-     => await mediator.Send(command with { Id = id }, cancellationToken);
+    public static async Task DeleteItem(Guid id, IMediator mediator, CancellationToken cancellationToken)
+     => await mediator.Send(new DeleteItemCommand(id), cancellationToken);
 }
